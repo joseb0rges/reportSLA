@@ -1,0 +1,10 @@
+/* CSS */
+
+.toggle-custom {
+  position: absolute !important;
+  top: 0;
+  right: 0;
+}
+.toggle-custom[aria-expanded='true'] .glyphicon-plus:before {
+  content: "\2212";
+}
