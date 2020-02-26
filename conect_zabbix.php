@@ -8,8 +8,7 @@ try
 {
 	// connect to Zabbix API
 
-	$api = new ZabbixApi('http://172.20.3.23/zabbix/api_jsonrpc.php', 'jose.borges@sefaz.ma.gov.br', 'borges@123');
-
+	$api = new ZabbixApi('http://url_server/zabbix/api_jsonrpc.php', 'usernae', 'password');
 
 }
 catch(Exception $e)

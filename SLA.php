@@ -1,5 +1,4 @@
 <?php
-require_once 'conect_zabbix.php';
 
 class SLA {
 	private $con;
@@ -63,23 +62,45 @@ class SLA {
 
 
 
-
-
-// Discovery Filhos de acordo com o PAI
+// Discovery Filhos de acordo com o Parent Service
 
 public function getchildrens(){
-	$Slaid = $this->con->serviceGet(array(
+
+	$childremID = $this->con->serviceGet(array(
 	
 		 "selectParentDependencies" => "extend",
 		 "output" => "dependencies"
 
 	));
 
-	return $Slaid;
+	return $childremID;
 
 }
 
-}
 
+// Metodo para Exibição do nome SLA que começão com R
+		
+	public function getNameParent() {  
+		$dataset = $this->con->serviceGet(array(
+
+			"filter" => array("triggerid" => "0"),
+			'output' => array("name")
+		));
+
+		$nameParentftl = array();
+		for($i=0;$i<sizeof($dataset);$i++){
+
+			$contains = preg_match('/^R/',$dataset[$i]->name); // Parametro de busca dos Grupo de SLA (Parent Service)
+
+			if($contains === 1) {
+
+				$nameParentftl[]= $dataset[$i]->name;
+			}
+		} 
+
+		return $nameParentftl;
+	}
+
+}
 
 ?>
