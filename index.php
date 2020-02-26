@@ -1,6 +1,7 @@
 <?php
 
 //require_once 'dataSet.php';
+error_reporting(E_ERROR | E_WARNING | E_PARSE);
 require_once 'conect_zabbix.php';
 require_once 'SLA.php';
 
@@ -48,39 +49,39 @@ $data_mes = strftime('%B/%Y', strtotime('today'));
 			</div>	
 		</div>
 	</div><br/><br/><br/><center>
-	<form class="form-inline" method="POST">
-		<div class="form-group mb-2">
-			<form  action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]);?>">
-				<div class="container">
-					<div class="form-group">
-						<label>OS -> </label>
-						<select class="form-control" name="OS">
-							<option>R005 - SGBD</option>
-							<option>R006 - SISTEMAS OPERACIONAIS</option>
-							<option>R007 - INFRAESTRUTURA DE REDE</option>
-							<option>R008 - BACKUP</option>
-							<option>R010 - VIRTUALIZACAO</option>
-							<option>R011 - APLICACOES WEB</option>
-							<option>R012 - SEGURANCA DA INFORMACAO</option>
-							<option>R013 - STORAGE</option>
-							<option>R014 - MENSAGERIA</option>
-						</select>
-					</div>
-					 From: <div class="input-group date form_datetime">
-						<input  name="call01" type="text" class="form-control"><span class="input-group-addon"><i class="glyphicon glyphicon-calendar"></i></span>
-					</div>
-					 To: <div class="input-group date form_datetime">
-						<input  name="call02" type="text" class="form-control"><span class="input-group-addon"><i class="glyphicon glyphicon-calendar"></i></span>
-					</div>
-					<button type="submit" class="btn btn-primary mb-2">Generate Report</button>
+		<form class="form-inline" method="POST">
+			<div class="form-group mb-2">
+				<form  action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]);?>">
+					<div class="container">
+						<div class="form-group">
+							<label>OS -> </label>
+							<select class="form-control" name="OS">
+								<option>R005 - SGBD</option>
+								<option>R006 - SISTEMAS OPERACIONAIS</option>
+								<option>R007 - INFRAESTRUTURA DE REDE</option>
+								<option>R008 - BACKUP</option>
+								<option>R010 - VIRTUALIZACAO</option>
+								<option>R011 - APLICACOES WEB</option>
+								<option>R012 - SEGURANCA DA INFORMACAO</option>
+								<option>R013 - STORAGE</option>
+								<option>R014 - MENSAGERIA</option>
+							</select>
+						</div>
+						From: <div class="input-group date form_datetime">
+							<input  name="call01" type="text" class="form-control"><span class="input-group-addon"><i class="glyphicon glyphicon-calendar"></i></span>
+						</div>
+						To: <div class="input-group date form_datetime">
+							<input  name="call02" type="text" class="form-control"><span class="input-group-addon"><i class="glyphicon glyphicon-calendar"></i></span>
+						</div>
+						<button type="submit" class="btn btn-primary mb-2">Generate Report</button>
 
-				</div>
-			</form>
+					</div>
+				</form>
 
-		</div>
+			</div>
 
-	</form>
-</center>
+		</form>
+	</center>
 	<div class="container">
 		<div class="principal">
 
@@ -109,7 +110,7 @@ $data_mes = strftime('%B/%Y', strtotime('today'));
 				$from = $date_from->getTimestamp();
 				$to = $date_to->getTimestamp();
 				
-			
+
 				$data_mesp=date('d/m/Y',$from);
 				$data_atual=date('d/m/Y',$to); 
 
@@ -133,37 +134,37 @@ $data_mes = strftime('%B/%Y', strtotime('today'));
 									</thead>
 									<?php 
 
-								
+
 									for ($i = 0; $i < $countdependences; $i++) {
 
 										if ($dependencesID[$i]->parentDependencies[0]->serviceid == $serviceParentID[0]->serviceid){
 											
-									 ?>
-										<tbody id="myTable">
-											<tr>
-											
-												<td align='center'><?php echo utf8_encode($dados->getNameSLA($dependencesID[$i]->serviceid)[0]->name); ?></td>
-												<td align='center'><?php echo $dados->getSLA($dependencesID[$i]->serviceid,$from,$to);?></td>
-												<td align='center'><?php
-											
-												if (substr(100 - $dados->getSLA($dependencesID[$i]->serviceid,$from,$to),0,5) == 0){ ?>
+											?>
+											<tbody id="myTable">
+												<tr>
 
-													<span class="alert alert-success" role="alert">Não Houve</span>
-													<?php
+													<td align='center'><?php echo utf8_encode($dados->getNameSLA($dependencesID[$i]->serviceid)[0]->name); ?></td>
+													<td align='center'><?php echo $dados->getSLA($dependencesID[$i]->serviceid,$from,$to);?></td>
+													<td align='center'><?php
+
+													if (substr(100 - $dados->getSLA($dependencesID[$i]->serviceid,$from,$to),0,5) == 0){ ?>
+
+														<span class="alert alert-success" role="alert">Não Houve</span>
+														<?php
 
 													}else { ?>
 
 														<span class="alert alert-danger" role="alert"><?php echo substr(100 - $dados->getSLA($dependencesID[$i]->serviceid,$from,$to),0,5);?></span>
-												 		<?php 
+														<?php 
 
-												 	}
-												 		?></td>
-												
+													}
+													?></td>
 
-											</tr>
 
-											<?php
-										}
+												</tr>
+
+												<?php
+											}
 										} 
 
 										?>
