@@ -1,5 +1,5 @@
 
-# Aplicacao Desenvolvida para Tirar Relatorio SLA de acordo com Parent e periodo Selecionado .
+# Aplicacao desenvolvida para Tirar Relatorio SLA de acordo com Parent e periodo Selecionado .
 
 
 
