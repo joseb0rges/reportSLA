@@ -1,5 +1,5 @@
 <?php
-
+//require_once 'conect_zabbix.php';
 class SLA {
 	private $con;
 	function __construct($con){ //Construtor
@@ -101,6 +101,67 @@ public function getchildrens(){
 		return $nameParentftl;
 	}
 
+// Buscando Eventos ....
+
+public function searchEventClock($eventid){
+	
+	$eventClock = $this->con->eventGet(array(
+	
+         "eventids" => "$eventid",
+
+        "output" => array("clock")
+
+	));
+
+	return $eventClock[0]->clock;
+
 }
+
+
+public function searchEventperHostid($hostid,$from,$to){
+	
+	$Slaid = $this->con->eventGet(array(
+	
+         "hostids" => "$hostid",
+         "time_from" => "$from",
+         "time_till" => "$to",
+         "severities" => "5",
+          "output" => array("clock","r_eventid","name")
+
+
+	));
+
+	return $Slaid;
+
+}
+
+
+
+
+public function calcDuractionEvent($clockini,$clockrecovery){
+	
+	$duraction = $clockrecovery - $clockini;
+	
+	return $duraction / 60 % 60;
+
+}
+
+}
+
+/*
+$dados = new SLA($api);
+
+$from = "1580567783";
+$to = "1582986983";
+$host="10559";
+
+
+
+$recovery_id = $dados->searchEventperHostid($host,$from,$to)[0]->r_eventid;
+$event_id = $dados->searchEventperHostid($host,$from,$to)[0]->eventid;
+$clockrecovery = $dados->searchEventClock($recovery_id);
+$clockini = $dados->searchEventClock($event_id);
+print_r($dados->calcDuractionEvent($clockini,$clockrecovery).' min');
+*/
 
 ?>

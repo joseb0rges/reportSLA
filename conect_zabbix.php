@@ -8,7 +8,7 @@ try
 {
 	// connect to Zabbix API
 
-	$api = new ZabbixApi('http://url_server/zabbix/api_jsonrpc.php', 'usernae', 'password');
+	$api = new ZabbixApi('http://url_servidor/zabbix/api_jsonrpc.php', 'usuario', 'senha');
 
 }
 catch(Exception $e)
